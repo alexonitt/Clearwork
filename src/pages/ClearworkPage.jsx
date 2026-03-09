@@ -1,0 +1,215 @@
+import { useEffect, useRef, useState } from 'react';
+
+function useInView() {
+  const ref = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsInView(true);
+      },
+      { threshold: 0.18 }
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+  return [ref, isInView];
+}
+
+const insideFeatures = [
+  { title: 'Life', body: 'Master calendar, meetings, fitness planner, and quick notes. Your daily command centre.' },
+  { title: 'Self-Care', body: 'Brain dump, habit tracker, goals, and supplement log. Build the habits that stick.' },
+  { title: 'Household', body: 'Chore tracker, recipes, plant tracker, and more. Keep your home running smoothly.' },
+  { title: 'Planning Ahead', body: 'Budget planner, travel plans, shopping lists, social events. Never miss a beat.' },
+];
+
+const faqs = [
+  { question: 'What tools do I need?', answer: 'Just Notion. Both the free and paid plans work perfectly with the template.' },
+  { question: 'Can I customise the template?', answer: 'Fully. Every page, block, and database is editable so you can adapt it to your workflow.' },
+  { question: 'Do I get updates?', answer: 'Yes. You get access to all future improvements and refinements to the Ultimate Life Planner for free.' },
+  { question: "What's your refund policy?", answer: '7-day money back, no questions asked. If it\'s not a fit, reply to your receipt and we\'ll refund you.' },
+];
+
+export function ClearworkPage() {
+  const [openFaq, setOpenFaq] = useState(faqs[0].question);
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const [navScrolled, setNavScrolled] = useState(false);
+  const [insideSectionRef, insideInView] = useInView();
+  const [routineSectionRef, routineInView] = useInView();
+  const [testimonialsSectionRef, testimonialsInView] = useInView();
+  const [faqSectionRef, faqInView] = useInView();
+  const [ctaSectionRef, ctaInView] = useInView();
+
+  useEffect(() => {
+    const t = setTimeout(() => setPageLoaded(true), 50);
+    const onScroll = () => setNavScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-cw-bg text-cw-text">
+      <header
+        className={`sticky top-0 z-30 border-b border-cw-border bg-white/90 backdrop-blur transition-all duration-700 ${
+          navScrolled ? 'shadow-sm' : ''
+        } ${pageLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+      >
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <a href="/" className="font-serif text-xl tracking-tight text-cw-text">Clearwork</a>
+          <nav className="hidden items-center gap-8 text-sm text-cw-muted md:flex">
+            <a href="#inside" className="hover:text-cw-text">What&apos;s inside</a>
+            <a href="#faq" className="hover:text-cw-text">FAQ</a>
+          </nav>
+          <a
+            href="https://alvarezian3.gumroad.com/l/otqzdd"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-cw-border px-4 py-2 text-sm text-cw-text hover:border-cw-accent hover:bg-cw-bg-muted"
+          >
+            Get the Template
+          </a>
+        </div>
+      </header>
+
+      <main id="top">
+        <section id="inside" className="bg-white">
+          <div className="mx-auto max-w-6xl px-4 pt-20 pb-16 sm:px-6 lg:px-8 lg:pt-28 lg:pb-20">
+            <div className="text-center">
+              <p className={`text-xs font-medium uppercase tracking-[0.22em] text-cw-muted transition-all duration-700 ${pageLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+                Notion template
+              </p>
+              <h1 className={`mt-4 font-serif text-4xl tracking-tight text-cw-text sm:text-5xl lg:text-[3.25rem] transition-all duration-700 ${pageLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{ transitionDelay: '0.12s' }}>
+                Work with more clarity.
+              </h1>
+              <p className={`mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-cw-muted sm:text-base transition-all duration-700 ${pageLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{ transitionDelay: '0.24s' }}>
+                A complete system for your entire life. Routines, goals, health, household, finances, and planning — all connected in one place.
+              </p>
+            </div>
+            <div ref={insideSectionRef} className={`mt-12 transition-all duration-700 ${insideInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              <article className="rounded-2xl border border-cw-border bg-[#FAFAF8] p-6 shadow-cw-card sm:p-8">
+                <header className="flex items-start justify-between gap-4">
+                  <h2 className="font-serif text-2xl text-cw-text sm:text-3xl">Ultimate Life Planner</h2>
+                  <span className="text-sm font-medium text-cw-muted">$29</span>
+                </header>
+                <div className="mt-6 flex justify-center">
+                  <div className="w-full max-w-2xl rounded-xl border border-cw-border bg-white p-4 shadow-sm sm:p-5">
+                    <div className="mb-3 flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-[#E2E2DD]" />
+                      <span className="h-2 w-2 rounded-full bg-[#E2E2DD]" />
+                      <span className="h-2 w-2 rounded-full bg-[#E2E2DD]" />
+                    </div>
+                    <div className="flex items-center justify-between border-b border-cw-border pb-3">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-cw-muted">Dashboard</p>
+                      <span className="rounded-full border border-cw-border bg-cw-bg-muted px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-cw-muted">Notion</span>
+                    </div>
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-lg border border-cw-border bg-cw-bg-muted/50 p-3">
+                        <p className="text-[11px] font-medium text-cw-text">This week</p>
+                        <p className="mt-1 text-[10px] text-cw-muted">Routines · Priorities · Tasks</p>
+                      </div>
+                      <div className="rounded-lg border border-cw-border bg-cw-bg-muted/50 p-3">
+                        <p className="text-[11px] font-medium text-cw-text">Today</p>
+                        <p className="mt-1 text-[10px] text-cw-muted">Focus blocks · Reviews</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {insideFeatures.map((f) => (
+                    <div key={f.title} className="rounded-xl border border-cw-border bg-white/80 p-4">
+                      <h3 className="text-sm font-semibold text-cw-text">{f.title}</h3>
+                      <p className="mt-1 text-xs leading-relaxed text-cw-muted">{f.body}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 flex justify-center">
+                  <a href="https://alvarezian3.gumroad.com/l/otqzdd" target="_blank" rel="noreferrer" className="text-sm font-medium text-cw-text underline-offset-4 hover:text-cw-accent">
+                    Get Template — $29 →
+                  </a>
+                </div>
+              </article>
+            </div>
+            <p className="mt-10 text-center text-xs font-medium uppercase tracking-[0.22em] text-cw-muted">Trusted by 1,200+ makers and founders</p>
+          </div>
+        </section>
+        <section className="bg-cw-accent">
+          <div ref={routineSectionRef} className={`mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 transition-all duration-700 ${routineInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <div className="text-center text-white">
+              <h2 className="font-serif text-2xl tracking-tight sm:text-3xl">Morning and evening routines, built in.</h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/80">Track your daily habits across the whole week. Reset with one click.</p>
+            </div>
+          </div>
+        </section>
+        <section className="border-y border-cw-border bg-white">
+          <div ref={testimonialsSectionRef} className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+            <h2 className={`font-serif text-2xl tracking-tight text-cw-text sm:text-3xl transition-all duration-700 ${testimonialsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>From people who actually use it.</h2>
+            <div className="mt-10 grid gap-10 md:grid-cols-3">
+              {[
+                { quote: "I used to have 6 different apps for all of this. Now it's just Notion.", name: 'Sophie R.', role: 'Freelance Designer' },
+                { quote: "The routine tracker alone was worth it. I've been consistent for 3 months straight.", name: 'James K.', role: 'Founder' },
+                { quote: "It's the only system I've actually stuck with. Everything just makes sense.", name: 'Mia T.', role: 'Student' },
+              ].map((t) => (
+                <figure key={t.name} className={`space-y-4 transition-all duration-700 ${testimonialsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+                  <blockquote className="font-serif text-base italic leading-relaxed text-cw-text">"{t.quote}"</blockquote>
+                  <figcaption className="text-sm text-cw-muted">
+                    <p className="font-medium text-cw-text">{t.name}</p>
+                    <p>{t.role}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section id="faq" className="bg-cw-bg-muted">
+          <div ref={faqSectionRef} className={`mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20 transition-all duration-700 ${faqInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <h2 className="font-serif text-2xl tracking-tight text-cw-text sm:text-3xl">Questions, answered simply.</h2>
+            <div className="mt-8 divide-y divide-cw-border border-t border-b border-cw-border bg-white/60">
+              {faqs.map((faq) => {
+                const isOpen = openFaq === faq.question;
+                return (
+                  <div key={faq.question}>
+                    <button type="button" className="flex w-full items-center justify-between px-4 py-4 text-left text-sm text-cw-text sm:px-5" onClick={() => setOpenFaq((c) => (c === faq.question ? null : faq.question))}>
+                      <span className="font-medium">{faq.question}</span>
+                      <span className="text-xs text-cw-muted">{isOpen ? '–' : '+'}</span>
+                    </button>
+                    <div className={`px-4 sm:px-5 overflow-hidden transition-all duration-300 ${isOpen ? 'opacity-100 max-h-40' : 'opacity-0 max-h-0'}`} style={{ paddingBottom: isOpen ? '1rem' : 0 }}>{faq.answer}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        <section id="cta" className="bg-white">
+          <div ref={ctaSectionRef} className={`mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20 transition-all duration-700 ${ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <h2 className="font-serif text-3xl tracking-tight text-cw-text sm:text-4xl">Your whole life. One template.</h2>
+            <p className="mt-3 text-sm leading-relaxed text-cw-muted">Instant Notion access. Fully customisable. One-time payment.</p>
+            <div className="mt-8">
+              <a href="https://alvarezian3.gumroad.com/l/otqzdd" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-cw-accent bg-cw-accent px-6 py-2.5 text-sm font-medium text-white hover:bg-neutral-900">
+                Get the Ultimate Life Planner — $29
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer className="border-t border-cw-border bg-cw-bg-muted">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-8 text-sm text-cw-muted sm:px-6 sm:py-10 lg:flex-row lg:px-8">
+          <div>
+            <p className="font-serif text-lg text-cw-text">Clearwork</p>
+            <p className="mt-1 text-xs uppercase tracking-[0.22em]">One system for your entire life.</p>
+          </div>
+          <nav className="flex flex-wrap gap-4 text-sm">
+            <a href="#inside" className="hover:text-cw-text">What&apos;s inside</a>
+            <a href="#faq" className="hover:text-cw-text">FAQ</a>
+            <a href="mailto:hello@clearwork.studio" className="hover:text-cw-text">Contact</a>
+          </nav>
+          <p className="text-xs text-cw-muted">© {new Date().getFullYear()} Clearwork. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}

@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-apex-bg text-apex-text font-sans antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* GPU-friendly animations */
+[data-framer-motion],
+.gpu-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
