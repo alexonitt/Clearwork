@@ -1,36 +1,28 @@
-import { Link } from 'react-router-dom';
-
-const footerLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/services', label: 'Services' },
-  { to: '/portfolio', label: 'Portfolio' },
-  { to: '/contact', label: 'Contact' },
-];
-
 export function Footer() {
   return (
-    <footer className="border-t border-apex-border bg-apex-bg">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-between gap-8 sm:flex-row">
-          <Link to="/" className="font-display text-xl font-bold text-white">
-            Apex Labs
-          </Link>
-          <nav className="flex flex-wrap justify-center gap-6 text-sm">
-            {footerLinks.map(({ to, label }) => (
-              <Link
-                key={to}
-                to={to}
-                className="text-apex-muted transition-colors hover:text-white"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+    <footer className="border-t border-cw-border bg-cw-bg-muted">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-8 text-sm text-cw-muted sm:px-6 sm:py-10 lg:flex-row lg:px-8">
+        <div>
+          <p className="font-serif text-lg text-cw-text">Clearwork</p>
+          <p className="mt-1 text-xs uppercase tracking-[0.22em]">
+            One system for your entire life.
+          </p>
         </div>
-        <p className="mt-8 text-center text-xs text-apex-muted sm:text-left">
-          © {new Date().getFullYear()} Apex Labs. All rights reserved.
+        <nav className="flex flex-wrap gap-4 text-sm">
+          <a href="#inside" className="hover:text-cw-text">
+            What&apos;s inside
+          </a>
+          <a href="#faq" className="hover:text-cw-text">
+            FAQ
+          </a>
+          <a href="mailto:hello@clearwork.studio" className="hover:text-cw-text">
+            Contact
+          </a>
+        </nav>
+        <p className="text-xs text-cw-muted">
+          © {new Date().getFullYear()} Clearwork. All rights reserved.
         </p>
       </div>
     </footer>
-  );
+  )
 }
