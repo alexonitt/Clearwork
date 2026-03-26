@@ -4,21 +4,36 @@
 
 html {
   scroll-behavior: smooth;
+  /* Avoid transform/filter so fixed-position UI (e.g. chat widgets) stays viewport-relative */
+  transform: none;
+  filter: none;
+  perspective: none;
+  overflow-x: visible;
 }
 
 body {
   @apply bg-apex-bg text-apex-text font-sans antialiased;
+  transform: none;
+  filter: none;
+  perspective: none;
+  overflow-x: visible;
 }
 
 #root {
   min-height: 100vh;
+  transform: none;
+  filter: none;
+  perspective: none;
+  contain: none;
 }
 
-/* GPU-friendly animations */
-[data-framer-motion],
-.gpu-layer {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+#fastbots-widget,
+[id*="fastbots"],
+[class*="fastbots"] {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 999999 !important;
+  transform: none !important;
 }
 

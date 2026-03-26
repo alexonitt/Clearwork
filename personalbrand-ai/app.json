@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "PersonalBrand.ai",
+    "slug": "personalbrand-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "personalbrand-ai",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ai.personalbrand.app"
+    },
+    "android": {
+      "package": "ai.personalbrand.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow PersonalBrand.ai to access your photos to analyze profile screenshots.",
+          "cameraPermission": "Allow PersonalBrand.ai to access your camera."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+export const colors = {
+  background: '#000000',
+  card: '#0D0D0D',
+  cardElevated: '#141414',
+  text: '#FFFFFF',
+  textSecondary: '#666666',
+  accent: '#C8FF00',
+  accentText: '#000000',
+  success: '#22C55E',
+  warning: '#F59E0B',
+  habitFill: '#C8FF00',
+  habitEmpty: '#1A1A1A',
+  tabBar: '#000000',
+  chatBubbleUser: '#FFFFFF',
+  chatBubbleAI: '#141414',
+  border: '#141414',
+};

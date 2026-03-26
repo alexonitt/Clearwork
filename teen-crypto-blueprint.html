@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Teen Crypto Blueprint — Crypto Education for Teens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --dark-base: #050607;
+      --dark-2: #0d0d0d;
+      --dark-3: #141414;
+      --green: #B8E351;
+      --green-glow: rgba(184,227,81,0.15);
+      --white: #FFFFFF;
+      --white-muted: rgba(255,255,255,0.55);
+      --white-dim: rgba(255,255,255,0.25);
+      --border: rgba(255,255,255,0.08);
+      --border-green: rgba(184,227,81,0.25);
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-2xl: 36px;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: 0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--white);
+      background: var(--dark-base);
+      overflow-x: hidden;
+      cursor: auto;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, border-color 0.4s ease, transform 0.5s ease, opacity 0.5s ease;
+      transform: translateY(-100%);
+      opacity: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: transparent;
+    }
+    .navbar.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .navbar.scrolled {
+      background: rgba(5, 6, 7, 0.9);
+      border-bottom-color: var(--border-green);
+    }
+    .navbar .wordmark {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: #B8E351; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--green);
+      color: var(--dark-base);
+      font-weight: 800;
+      padding: 0.6rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px rgba(184, 227, 81, 0.4);
+    }
+    .navbar .menu-toggle { display: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .navbar .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+      .nav-cta { padding: 0.5rem 1rem; font-size: 0.85rem; }
+      .pricing-card { padding: 32px 24px; }
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8.75rem 1.5rem 4rem;
+      background: var(--dark-base);
+      position: relative;
+      overflow: hidden;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.02) 0px,
+        rgba(255,255,255,0.02) 1px,
+        transparent 1px,
+        transparent 80px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-left {
+      width: 55%;
+      min-width: 280px;
+      max-width: 620px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(184,227,81,0.3);
+      background: rgba(184,227,81,0.06);
+      color: var(--green);
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-body);
+      line-height: 1.1;
+      margin-bottom: 0;
+    }
+    .hero-title .line1 {
+      display: block;
+      color: rgba(255,255,255,0.4);
+      font-weight: 300;
+      font-size: clamp(36px, 4.5vw, 64px);
+    }
+    .hero-title .line2 {
+      display: block;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: clamp(40px, 5.5vw, 72px);
+    }
+    .hero-title .line3 {
+      display: block;
+      color: var(--green);
+      font-weight: 800;
+      font-style: italic;
+      font-size: clamp(40px, 5.5vw, 72px);
+    }
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: rgba(255,255,255,0.45);
+      max-width: 400px;
+      line-height: 1.75;
+      margin-top: 28px;
+      margin-bottom: 2rem;
+    }
+    .hero-buttons { margin-bottom: 0; }
+    .btn-primary {
+      background: var(--green);
+      color: var(--dark-base);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 6px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: margin 0.2s;
+    }
+    .btn-primary:hover { margin-left: 4px; }
+    .btn-primary .arrow { transition: margin 0.2s; }
+    .btn-primary:hover .arrow { margin-left: 4px; }
+    .hero-trust {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 20px;
+    }
+
+    .hero-right {
+      flex: 1;
+      min-width: 320px;
+      position: relative;
+      z-index: 1;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .hero-cards {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      height: 280px;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 300px;
+      height: 100px;
+      background: var(--green);
+      filter: blur(80px);
+      opacity: 0.12;
+      bottom: 0;
+      right: 10%;
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .hero-card {
+      position: absolute;
+      background: var(--dark-2);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      animation: floatCards 4s ease-in-out infinite;
+    }
+    .hero-card.card1 {
+      width: 220px;
+      border: 1px solid rgba(255,255,255,0.1);
+      top: 0;
+      right: 0;
+      transform: perspective(800px) rotateY(-12deg) rotateX(6deg);
+      animation-delay: 0s;
+    }
+    .hero-card.card2 {
+      width: 180px;
+      background: #0f1a00;
+      border: 1px solid rgba(184,227,81,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      top: 60px;
+      right: 80px;
+      transform: perspective(800px) rotateY(-8deg) rotateX(3deg) translateY(40px) translateX(-20px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      animation-delay: 0.8s;
+    }
+    .hero-card.card3 {
+      width: 200px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      top: 120px;
+      right: 20px;
+      transform: perspective(800px) rotateY(-6deg) rotateX(8deg) translateY(80px) translateX(30px);
+      animation-delay: 1.6s;
+    }
+    .hero-card-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .hero-card-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-card.card2 .hero-card-num { font-size: 48px; color: #ffffff; }
+    .hero-card.card3 .hero-card-num { font-size: 56px; }
+    .hero-card-sub {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    .hero-card-bar {
+      margin-top: 12px;
+      height: 2px;
+      border-radius: 1px;
+      background: linear-gradient(90deg, var(--green), transparent);
+      width: 70%;
+    }
+    .hero-card-active {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--green);
+    }
+    .hero-card-active::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .hero-card-old {
+      font-size: 14px;
+      color: rgba(255,255,255,0.2);
+      text-decoration: line-through;
+    }
+    @keyframes floatCards1 {
+      0%, 100% { transform: perspective(800px) rotateY(-12deg) rotateX(6deg) translateY(0); }
+      50% { transform: perspective(800px) rotateY(-12deg) rotateX(6deg) translateY(-8px); }
+    }
+    @keyframes floatCards2 {
+      0%, 100% { transform: perspective(800px) rotateY(-8deg) rotateX(3deg) translateY(40px) translateX(-20px); }
+      50% { transform: perspective(800px) rotateY(-8deg) rotateX(3deg) translateY(32px) translateX(-20px); }
+    }
+    @keyframes floatCards3 {
+      0%, 100% { transform: perspective(800px) rotateY(-6deg) rotateX(8deg) translateY(80px) translateX(30px); }
+      50% { transform: perspective(800px) rotateY(-6deg) rotateX(8deg) translateY(72px) translateX(30px); }
+    }
+    .hero-card.card1 { animation-name: floatCards1; }
+    .hero-card.card2 { animation-name: floatCards2; }
+    .hero-card.card3 { animation-name: floatCards3; }
+
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; padding-top: 5rem; text-align: center; }
+      .hero-left { width: 100%; max-width: none; }
+      .hero-right { display: none; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-trust { justify-content: center; }
+    }
+
+    /* ========== TICKER ========== */
+    .ticker {
+      background: rgba(184, 227, 81, 0.08);
+      border-top: 1px solid rgba(184, 227, 81, 0.15);
+      border-bottom: 1px solid rgba(184, 227, 81, 0.15);
+      height: 46px;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .ticker-inner {
+      display: flex;
+      animation: marquee 25s linear infinite;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ticker-text {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--green);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0 2rem;
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ========== SOCIAL PROOF ========== */
+    .social-proof {
+      background: linear-gradient(180deg, transparent, rgba(184, 227, 81, 0.04) 50%, transparent);
+      padding: 80px 1.5rem;
+      margin: 0;
+    }
+    .social-proof-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      text-align: center;
+      align-items: stretch;
+    }
+    .stat-item {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0 2rem;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item.visible { opacity: 1; transform: translateY(0); }
+    .stat-item .stat-num-wrap { display: flex; align-items: baseline; justify-content: center; gap: 0.05em; margin-bottom: 0.25rem; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 80px;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .stat-suffix { font-family: var(--font-display); font-size: 80px; color: #ffffff; }
+    .stat-label {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    @media (max-width: 768px) {
+      .social-proof-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 1rem; }
+      .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
+      .stat-num, .stat-suffix { font-size: 3.5rem; }
+    }
+
+    /* ========== PROBLEM ========== */
+    .problem {
+      background: transparent;
+      padding: 8.75rem 1.5rem;
+    }
+    .problem-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .problem-header p { margin-bottom: 0; }
+    .problem h2 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 80px);
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+    }
+    .problem-header p { color: rgba(255,255,255,0.65); font-size: 17px; }
+    .problem-cards {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .problem-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .problem-card:hover {
+      background: #111111;
+      border-color: rgba(184, 227, 81, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .problem-card .icon-wrap {
+      width: 56px;
+      height: 56px;
+      background: rgba(184, 227, 81, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .problem-card .icon { font-size: 2.5rem; }
+    .problem-card h3 { color: #ffffff; font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .problem-card p { color: rgba(255,255,255,0.6); font-size: 17px; line-height: 1.7; }
+    .problem-card.reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .problem-card.reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      .problem-cards { grid-template-columns: 1fr; }
+    }
+
+    /* ========== WHAT'S INSIDE ========== */
+    .chapters {
+      background: transparent;
+      padding: 8.75rem 1.5rem;
+    }
+    .chapters-inner { max-width: 1100px; margin: 0 auto; }
+    .chapters h2 { margin-bottom: 1.5rem; }
+    .chapters-badge {
+      display: inline-block;
+      background: rgba(184, 227, 81, 0.12);
+      border: 1px solid rgba(184, 227, 81, 0.3);
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .chapters h2 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 80px);
+      color: #ffffff;
+    }
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .chapter-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .chapter-card:hover {
+      background: #111111;
+      border-color: rgba(184, 227, 81, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .chapter-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .chapter-card h3, .chapter-card p { position: relative; z-index: 1; }
+    .chapter-card .chapter-watermark {
+      position: absolute;
+      bottom: -10px;
+      right: 10px;
+      font-family: var(--font-display);
+      font-size: 100px;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .chapter-card h3 { font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 0.35rem; }
+    .chapter-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    .chapter-card.reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .chapter-card.reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      .chapters-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ========== PRODUCT SPOTLIGHT ========== */
+    .spotlight {
+      padding: 8.75rem 1.5rem;
+      background: transparent;
+      position: relative;
+    }
+    .spotlight-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 520px;
+    }
+    .spotlight-inner::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(184,227,81,0.15), transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .spotlight-cover {
+      width: min(420px, 90vw);
+      height: min(560px, 120vw);
+      background: linear-gradient(135deg, rgba(184,227,81,0.9), rgba(134,239,172,0.7), rgba(220,252,231,0.4));
+      border-radius: var(--radius-2xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+      box-shadow: 0 60px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .spotlight-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .spotlight-cover .cover-title { position: relative; z-index: 1; }
+    .spotlight-cover .cover-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 0.95;
+      text-align: center;
+      color: #000000;
+    }
+    .spotlight-cover .cover-title .c-green { color: #B8E351; }
+    .spotlight-bubble {
+      position: absolute;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.6rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 2;
+    }
+    .spotlight-bubble.b1 { transition-delay: 0.1s; }
+    .spotlight-bubble.b2 { transition-delay: 0.2s; }
+    .spotlight-bubble.b3 { transition-delay: 0.3s; }
+    .spotlight-bubble.b4 { transition-delay: 0.4s; }
+    .spotlight-bubble.visible { opacity: 1; transform: translateY(0); }
+    .spotlight-bubble.b1 { top: 10%; left: 5%; }
+    .spotlight-bubble.b2 { top: 10%; right: 5%; }
+    .spotlight-bubble.b3 { bottom: 15%; left: 2%; }
+    .spotlight-bubble.b4 { bottom: 15%; right: 2%; }
+    @media (max-width: 768px) {
+      .spotlight-bubble { font-size: 0.75rem; padding: 0.5rem 0.8rem; }
+      .spotlight-bubble.b1 { left: 0; }
+      .spotlight-bubble.b4 { right: 0; }
+    }
+
+    /* ========== WHO IT'S FOR ========== */
+    .who {
+      padding: 8.75rem 1.5rem;
+      background: transparent;
+      position: relative;
+    }
+    .who-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+    }
+    .who h2 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 80px);
+      color: #ffffff;
+      line-height: 1.05;
+    }
+    .who-list-wrap {
+      position: relative;
+    }
+    .who-list-wrap::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(184, 227, 81, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .who-list-wrap::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 280px;
+      line-height: 1;
+      opacity: 0.04;
+      color: rgba(255,255,255,0.5);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .who-list {
+      background: var(--dark-2);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 2.5rem;
+      border-radius: 16px;
+      list-style: none;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .who-list:hover {
+      background: #111111;
+      border-color: rgba(184, 227, 81, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .who-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+    }
+    .who-list li:last-child { margin-bottom: 0; }
+    .who-list .check { color: #B8E351; font-weight: 800; flex-shrink: 0; }
+    @media (max-width: 768px) {
+      .who-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ========== TESTIMONIALS ========== */
+    .testimonials {
+      background: transparent;
+      padding: 8.75rem 1.5rem;
+    }
+    .testimonials h2 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 80px);
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .testimonials-slider {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonials-track {
+      display: flex;
+      gap: 1.5rem;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .testimonial-card {
+      flex: 0 0 calc(33.333% - 1rem);
+      background: var(--dark-2);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      opacity: 0.5;
+      transform: scale(0.97);
+      filter: blur(1px);
+    }
+    .testimonial-card.active {
+      transform: scale(1);
+      opacity: 1;
+      filter: none;
+      background: #111111;
+      border-color: rgba(184, 227, 81, 0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .testimonial-card .quote {
+      position: relative;
+      padding-top: 1.5rem;
+      color: rgba(255,255,255,0.65);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+    .testimonial-card .quote::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      font-family: var(--font-display);
+      font-size: 80px;
+      line-height: 0;
+      color: rgba(184, 227, 81, 0.3);
+    }
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--dark-base);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .testimonial-card .name { color: #ffffff; font-weight: 700; margin-bottom: 0.25rem; }
+    .testimonial-card .age { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .testimonial-card .stars { color: #B8E351; margin-bottom: 0.75rem; }
+    .testimonials-arrows {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .testimonials-arrows button {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(184, 227, 81, 0.5);
+      background: transparent;
+      color: var(--green);
+      font-size: 1.25rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .testimonials-arrows button:hover { background: rgba(184, 227, 81, 0.2); color: #B8E351; }
+    .testimonials-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .testimonials-dots button {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .testimonials-dots button.active {
+      background: var(--green);
+      transform: scale(1.3);
+    }
+    .testimonials-dots button:hover { background: rgba(184,227,81,0.6); }
+    @media (max-width: 768px) {
+      .testimonial-card { flex: 0 0 100%; }
+    }
+
+    /* ========== COMPARISON ========== */
+    .comparison {
+      background: transparent;
+      padding: 8.75rem 1.5rem;
+    }
+    .comparison-inner { max-width: 800px; margin: 0 auto; }
+    .comparison-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      background: var(--dark-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .comparison h2 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 80px);
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .comparison-table thead th {
+      font-weight: 700;
+      background: rgba(255,255,255,0.05);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .comparison-table tbody td:first-child { color: rgba(255,255,255,0.7); }
+    .comparison-table .cross { color: rgba(255,255,255,0.3); }
+    .comparison-table .col-blueprint {
+      background: #0f1a00;
+      color: var(--green);
+      border-left: 1px solid rgba(184, 227, 81, 0.3);
+    }
+    .comparison-table .col-blueprint th {
+      background: #0f1a00;
+      color: var(--green);
+    }
+    .comparison-inner.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .comparison-inner.reveal.visible { opacity: 1; transform: translateY(0); }
+    .comparison-table .col-blueprint th .crown { margin-right: 0.25rem; }
+    .comparison-table .check { color: #B8E351; }
+
+    /* ========== PRICING CTA ========== */
+    .pricing {
+      background: transparent;
+      padding: 8.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .pricing-headline { text-align: center; margin-bottom: 2rem; }
+    .pricing-border-wrap {
+      position: relative;
+    }
+    .pricing-ribbon {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      background: var(--green);
+      color: var(--dark-base);
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 13px;
+      border-radius: 20px 20px 0 0;
+    }
+    .pricing-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0 0 20px 20px;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 48px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(180deg, rgba(184,227,81,0.04), transparent);
+      border-radius: 20px 20px 0 0;
+      pointer-events: none;
+    }
+    .pricing-urgency {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: #f87171;
+      margin-bottom: 1rem;
+    }
+    .pricing-badge {
+      display: inline-block;
+      background: rgba(184, 227, 81, 0.12);
+      border: 1px solid rgba(184, 227, 81, 0.3);
+      color: var(--green);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.3rem 0.7rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .pricing-card h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-old { text-decoration: line-through; color: rgba(255,255,255,0.3); font-size: 1.1rem; margin-bottom: 0.25rem; }
+    .pricing-price {
+      font-family: var(--font-display);
+      font-size: 88px;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .pricing-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+    }
+    .pricing-list .check { color: #B8E351; font-weight: 800; }
+    .pricing-cta {
+      display: block;
+      width: 100%;
+      background: var(--green);
+      color: var(--dark-base);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 18px 48px;
+      border-radius: 8px;
+      border: none;
+      transition: opacity 0.2s;
+    }
+    .pricing-cta:hover { opacity: 0.95; }
+    .pricing-note {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 1rem;
+    }
+
+    /* ========== FAQ ========== */
+    .faq {
+      background: transparent;
+      padding: 8.75rem 1.5rem;
+    }
+    .faq-inner { max-width: 700px; margin: 0 auto; }
+    .faq h2 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 80px);
+      color: #ffffff;
+      margin-bottom: 2rem;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+    }
+    .faq-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 600;
+      text-align: left;
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .faq-question:hover, .faq-item.open .faq-question { color: #ffffff; }
+    .faq-icon {
+      font-size: 1.5rem;
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-left: 1rem;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq-answer-inner { padding: 0 0 1.25rem 0; color: rgba(255,255,255,0.5); line-height: 1.7; font-size: 16px; font-weight: 400; }
+
+    /* ========== FINAL CTA ========== */
+    .final-cta {
+      background: transparent;
+      padding: 8.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::after {
+      content: '→';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 300px;
+      line-height: 1;
+      opacity: 0.03;
+      color: white;
+      pointer-events: none;
+    }
+    .final-cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+    .final-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 56px);
+      color: #ffffff;
+      line-height: 1.1;
+      flex: 1;
+      min-width: 280px;
+    }
+    .final-cta .btn-primary {
+      flex-shrink: 0;
+      padding: 1rem 2rem;
+    }
+    @media (max-width: 768px) {
+      .final-cta-inner { flex-direction: column; text-align: center; }
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--dark-base);
+      padding: 3rem 1.5rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+    .footer-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-brand .wordmark {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--white-muted);
+      letter-spacing: 0.04em;
+    }
+    .footer-brand p { color: var(--white-dim); font-size: 0.9rem; margin-top: 0.25rem; }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--white-dim);
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-social {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white-dim);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-social a:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: 12px;
+      color: var(--white-dim);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-watermark {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: 200px;
+      line-height: 1;
+      opacity: 1;
+      color: rgba(255,255,255,0.03);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* Section entrance animations + mixed-weight headline parts */
+    .section-headline {
+      font-family: var(--font-body);
+      font-size: clamp(32px, 4vw, 56px);
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: transform, opacity;
+    }
+    .section-headline.visible { opacity: 1; transform: translateX(0); }
+    .section-headline .hl-dim { color: rgba(255,255,255,0.35); font-weight: 300; }
+    .section-headline .hl-bold { color: #ffffff; font-weight: 800; }
+    .section-headline .hl-accent { color: var(--green); font-weight: 800; }
+    .section-headline .hl-accent-italic { color: var(--green); font-weight: 800; font-style: italic; }
+    .section-content {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: transform, opacity;
+    }
+    .section-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section-content.stagger-1 { transition-delay: 0.1s; }
+    .section-content.stagger-2 { transition-delay: 0.2s; }
+    .section-content.stagger-3 { transition-delay: 0.3s; }
+    .section-content.stagger-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="wordmark">TEEN CRYPTO BLUEPRINT</a>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#chapters">What's Inside</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#pricing">Get Access</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Get Instant Access →</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-left">
+      <span class="hero-badge">The Crypto Guide for Teens</span>
+      <h1 class="hero-title">
+        <span class="line1">The only guide</span>
+        <span class="line2">built for</span>
+        <span class="line3">teen investors.</span>
+      </h1>
+      <p class="hero-sub">Step-by-step. No jargon. Get from zero to your first crypto investment in under 24 hours.</p>
+      <div class="hero-buttons">
+        <a href="#pricing" class="btn-primary">Get started <span class="arrow">→</span></a>
+      </div>
+      <p class="hero-trust">★★★★★ 4.9/5 · 1,200+ teens enrolled</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-cards">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-card card1">
+          <div class="hero-card-label">TOTAL CHAPTERS</div>
+          <div class="hero-card-num">9</div>
+          <div class="hero-card-sub">chapters inside</div>
+          <div class="hero-card-bar"></div>
+        </div>
+        <div class="hero-card card2">
+          <div class="hero-card-label">ENROLLED</div>
+          <div class="hero-card-num">1,200+</div>
+          <div class="hero-card-active">Active</div>
+        </div>
+        <div class="hero-card card3">
+          <div class="hero-card-label">ONE TIME ACCESS</div>
+          <div class="hero-card-num">$27</div>
+          <span class="hero-card-old">$97</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-text">BITCOIN • ETHEREUM • ALTCOINS • WEB3 • DEFI • NFT • STAKING • WALLETS • BLOCKCHAIN •</span>
+      <span class="ticker-text">BITCOIN • ETHEREUM • ALTCOINS • WEB3 • DEFI • NFT • STAKING • WALLETS • BLOCKCHAIN •</span>
+    </div>
+  </div>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-proof">
+    <div class="social-proof-inner">
+      <div class="stat-item" data-target="1200" data-suffix="+"> <div class="stat-num-wrap"><span class="stat-num" data-count>0</span><span class="stat-suffix" style="opacity:0">+</span></div> <div class="stat-label">Teens Enrolled</div> </div>
+      <div class="stat-item" data-target="4.9" data-suffix="/5"> <div class="stat-num-wrap"><span class="stat-num" data-count>0</span><span class="stat-suffix">/5</span></div> <div class="stat-label">Average Rating</div> </div>
+      <div class="stat-item" data-target="47" data-suffix=""> <div class="stat-num-wrap"><span class="stat-num" data-count>0</span></div> <div class="stat-label">Countries</div> </div>
+      <div class="stat-item" data-target="9" data-suffix=""> <div class="stat-num-wrap"><span class="stat-num" data-count>0</span></div> <div class="stat-label">Chapters Inside</div> </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="problem-header">
+      <h2 class="section-headline">Most teens are <span class="hl-bold">years behind</span> <span class="hl-accent">financially.</span></h2>
+      <p>The system was never designed to teach you about money.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="problem-card reveal" style="transition-delay: 0.1s">
+        <div class="icon-wrap"><span class="icon">🏫</span></div>
+        <h3>School teaches you nothing about wealth</h3>
+        <p>Traditional education skips the stuff that actually builds financial freedom.</p>
+      </div>
+      <div class="problem-card reveal" style="transition-delay: 0.2s">
+        <div class="icon-wrap"><span class="icon">⏳</span></div>
+        <h3>By the time you feel ready, others already profited</h3>
+        <p>Waiting until you're "old enough" just means missing years of compounding.</p>
+      </div>
+      <div class="problem-card reveal" style="transition-delay: 0.3s">
+        <div class="icon-wrap"><span class="icon">😵</span></div>
+        <h3>Most crypto content is confusing or full of scams</h3>
+        <p>YouTube rabbit holes and Twitter gurus often lead to losses, not gains.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="chapters" id="chapters">
+    <div class="chapters-inner">
+      <span class="chapters-badge">INSIDE THE BLUEPRINT</span>
+      <h2 class="section-headline"><span class="hl-bold">9 chapters.</span> <span class="hl-dim">Zero</span> <span class="hl-accent-italic">fluff.</span></h2>
+      <div class="chapters-grid">
+        <div class="chapter-card reveal" style="transition-delay: 0.05s"> <span class="chapter-watermark">01</span> <span class="chapter-num">01</span> <h3>What Is Crypto & Why It Matters</h3> <p>Understand the basics and why it matters for your future.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.1s"> <span class="chapter-watermark">02</span> <span class="chapter-num">02</span> <h3>How Blockchain Actually Works</h3> <p>No jargon—just how the tech works in plain English.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.15s"> <span class="chapter-watermark">03</span> <span class="chapter-num">03</span> <h3>Setting Up Your First Wallet</h3> <p>Step-by-step guide to your first crypto wallet.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.2s"> <span class="chapter-watermark">04</span> <span class="chapter-num">04</span> <h3>Reading Crypto Charts</h3> <p>Learn to read charts and spot trends like a pro.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.25s"> <span class="chapter-watermark">05</span> <span class="chapter-num">05</span> <h3>Bitcoin vs Ethereum vs Altcoins</h3> <p>Know the difference and where to put your money.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.3s"> <span class="chapter-watermark">06</span> <span class="chapter-num">06</span> <h3>Risk Management for Teens</h3> <p>Protect your money and invest with confidence.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.35s"> <span class="chapter-watermark">07</span> <span class="chapter-num">07</span> <h3>How to Avoid Scams & Rug Pulls</h3> <p>Red flags and how to stay safe in crypto.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.4s"> <span class="chapter-watermark">08</span> <span class="chapter-num">08</span> <h3>Your First $10 Investment Strategy</h3> <p>Start small and grow—no huge capital needed.</p> </div>
+        <div class="chapter-card reveal" style="transition-delay: 0.45s"> <span class="chapter-watermark">09</span> <span class="chapter-num">09</span> <h3>Long-Term Wealth Mindset</h3> <p>Think long-term and build habits that last.</p> </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT SPOTLIGHT -->
+  <section class="spotlight">
+    <div class="spotlight-inner">
+      <span class="spotlight-bubble b1">📄 Instant PDF</span>
+      <span class="spotlight-bubble b2">📱 Mobile Friendly</span>
+      <div class="spotlight-cover">
+        <div class="cover-title">
+          <span class="line">THE</span>
+          <span class="line">TEEN</span>
+          <span class="line"><span class="c-green">C</span>RYPTO</span>
+          <span class="line">BLUEPRINT</span>
+        </div>
+      </div>
+      <span class="spotlight-bubble b3">🔒 Beginner Safe</span>
+      <span class="spotlight-bubble b4">⚡ Start in 24hrs</span>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="who">
+    <div class="who-inner">
+      <h2 class="section-headline"><span class="hl-bold">Built for</span> <span class="hl-dim">the next generation of</span> <span class="hl-accent">investors.</span></h2>
+      <div class="who-list-wrap">
+      <ul class="who-list">
+        <li><span class="check">✅</span> You're 13–21 and crypto-curious</li>
+        <li><span class="check">✅</span> You want to build wealth before adulthood</li>
+        <li><span class="check">✅</span> You're done with confusing YouTube rabbit holes</li>
+        <li><span class="check">✅</span> You have as little as $10 to invest</li>
+        <li><span class="check">✅</span> You want a clear, step-by-step roadmap</li>
+      </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <h2 class="section-headline"><span class="hl-bold">Real teens.</span> <span class="hl-dim">Real</span> <span class="hl-accent">results.</span></h2>
+    <div class="testimonials-slider">
+      <div class="testimonials-track" id="testimonialsTrack">
+        <div class="testimonial-card active" data-index="0">
+          <div class="testimonial-avatar">JK</div>
+          <div class="name">Jake K.</div>
+          <div class="age">17</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="quote">"Finally something that doesn't talk over my head. I had my first $50 in crypto within a week."</p>
+        </div>
+        <div class="testimonial-card" data-index="1">
+          <div class="testimonial-avatar">MR</div>
+          <div class="name">Maya R.</div>
+          <div class="age">15</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="quote">"The scam section alone saved me from two sketchy 'opportunities.' Worth every penny."</p>
+        </div>
+        <div class="testimonial-card" data-index="2">
+          <div class="testimonial-avatar">TL</div>
+          <div class="name">Ty L.</div>
+          <div class="age">19</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="quote">"I wish this existed when I was 14. Clear, honest, and actually actionable. Game changer."</p>
+        </div>
+        <div class="testimonial-card" data-index="3">
+          <div class="testimonial-avatar">ES</div>
+          <div class="name">Emma S.</div>
+          <div class="age">16</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="quote">"Read it in two days. Now I understand wallets, charts, and how to not get rekt. 10/10."</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonials-arrows">
+      <button type="button" id="testPrev" aria-label="Previous">←</button>
+      <button type="button" id="testNext" aria-label="Next">→</button>
+    </div>
+    <div class="testimonials-dots" id="testimonialsDots"></div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="comparison">
+    <div class="comparison-inner reveal">
+      <h2 class="section-headline"><span class="hl-bold">The Blueprint</span> <span class="hl-dim">vs. Going It Alone</span></h2>
+      <div class="comparison-table-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>❌ Without Blueprint</th>
+            <th class="col-blueprint"><span class="crown">⭐</span> With Blueprint</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Learning curve</td>
+            <td class="cross">Months of confusion</td>
+            <td class="col-blueprint"><span class="check">✓</span> Days</td>
+          </tr>
+          <tr>
+            <td>Scam risk</td>
+            <td class="cross">High</td>
+            <td class="col-blueprint"><span class="check">✓</span> Very low</td>
+          </tr>
+          <tr>
+            <td>Confidence</td>
+            <td class="cross">Low</td>
+            <td class="col-blueprint"><span class="check">✓</span> High</td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td class="cross">Free (but costly mistakes)</td>
+            <td class="col-blueprint"><span class="check">✓</span> $27</td>
+          </tr>
+          <tr>
+            <td>Time to first investment</td>
+            <td class="cross">Unknown</td>
+            <td class="col-blueprint"><span class="check">✓</span> 24–48 hours</td>
+          </tr>
+          <tr>
+            <td>Clarity</td>
+            <td class="cross">None</td>
+            <td class="col-blueprint"><span class="check">✓</span> Complete roadmap</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-inner">
+      <h2 class="section-headline pricing-headline"><span class="hl-dim">One payment.</span> <span class="hl-bold">Lifetime</span> <span class="hl-accent">access.</span></h2>
+      <div class="pricing-border-wrap">
+      <div class="pricing-ribbon">🔥 LIMITED TIME — $27 (Regular $97)</div>
+      <div class="pricing-card">
+        <span class="pricing-badge">ONE-TIME PAYMENT</span>
+        <h2>THE TEEN CRYPTO BLUEPRINT</h2>
+        <p class="pricing-old">$97</p>
+        <div class="pricing-price">$27</div>
+        <p class="pricing-urgency">⏰ Price increases soon</p>
+        <ul class="pricing-list">
+          <li><span class="check">✅</span> Full 9-chapter PDF Blueprint</li>
+          <li><span class="check">✅</span> Beginner crypto glossary</li>
+          <li><span class="check">✅</span> First investment checklist</li>
+          <li><span class="check">✅</span> Scam detection guide</li>
+          <li><span class="check">✅</span> Instant download, forever access</li>
+        </ul>
+        <a href="#" class="pricing-cta">GET INSTANT ACCESS NOW →</a>
+        <p class="pricing-note">🔒 Secure Checkout · Instant Download · 30-Day Money Back Guarantee</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-inner">
+      <h2 class="section-headline">Got questions?</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-question">Do I need money to start investing? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">You can start with as little as $10. The Blueprint shows you exactly how to get started with small amounts and grow from there.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question">Is crypto legal for teens? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">In most countries, teens can hold and learn about crypto with parental awareness. The guide covers legal considerations so you stay on the right side of the law.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question">What if I have no tech background? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">The Blueprint is written for complete beginners. No prior tech or finance knowledge required—we explain everything in plain English.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question">How long is the guide? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">9 chapters, designed to be read in a few hours. You can finish the whole thing in a weekend and start investing within 24–48 hours.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question">How is this different from YouTube? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">YouTube is scattered and often biased. The Blueprint is a single, step-by-step roadmap—no rabbit holes, no conflicting advice, no sponsored hype.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question">What format is it in? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Instant PDF download. Read on any device—phone, tablet, or laptop. No subscription, no login wall—yours forever.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question">Is there a refund policy? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. 30-day money-back guarantee. If it's not for you, we'll refund you—no questions asked.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question">How quickly can I get started? <span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Immediately. After checkout you get instant access to the PDF. Most teens are set up and ready to invest within 24–48 hours.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-inner">
+      <h2 class="section-headline">Don't wait until you're 30 to start building wealth.</h2>
+      <a href="#pricing" class="btn-primary">Get Instant Access →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-watermark" aria-hidden="true">BLUEPRINT</span>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">THE TEEN CRYPTO BLUEPRINT</div>
+        <p>The Crypto Guide for Teens.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+        <a href="#">Refund Policy</a>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="X">𝕏</a>
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="TikTok">♪</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Teen Crypto Blueprint. All rights reserved. Crypto investing involves risk. This guide is for educational purposes only.
+    </div>
+  </footer>
+
+  <script>
+    // Navbar: show on load, scrolled state
+    (function() {
+      const nav = document.getElementById('navbar');
+      setTimeout(function() { nav.classList.add('visible'); }, 100);
+      function onScroll() {
+        if (window.scrollY > 50) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      }
+      window.addEventListener('scroll', onScroll);
+    })();
+
+    // IntersectionObserver: reveal elements
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.stat-item').forEach(function(el) { observer.observe(el); });
+    document.querySelectorAll('.problem-card.reveal').forEach(function(el) { observer.observe(el); });
+    document.querySelectorAll('.chapter-card.reveal').forEach(function(el) { observer.observe(el); });
+    document.querySelectorAll('.spotlight-bubble').forEach(function(el) { observer.observe(el); });
+    document.querySelectorAll('.section-headline').forEach(function(el) { observer.observe(el); });
+    document.querySelectorAll('.comparison-inner.reveal').forEach(function(el) { observer.observe(el); });
+
+    // Count-up animation for stats (ease-out, + fades in for 1200+)
+    function animateValue(el, start, end, suffix, duration, showPlusAfter) {
+      var startTime = performance.now();
+      var wrap = el.closest('.stat-num-wrap');
+      var suffixEl = wrap ? wrap.querySelector('.stat-suffix') : null;
+      function update(currentTime) {
+        var elapsed = currentTime - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        var easeOut = 1 - Math.pow(1 - progress, 3);
+        var current = start + (end - start) * easeOut;
+        el.textContent = (end % 1 !== 0 ? current.toFixed(1) : Math.round(current));
+        if (progress >= 1 && suffixEl && showPlusAfter) {
+          suffixEl.style.transition = 'opacity 0.4s ease';
+          suffixEl.style.opacity = '1';
+        }
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+    var statsObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var item = entry.target;
+        var target = parseFloat(item.getAttribute('data-target'));
+        var suffix = item.getAttribute('data-suffix') || '';
+        var numEl = item.querySelector('[data-count]');
+        if (numEl && !numEl.dataset.animated) {
+          numEl.dataset.animated = '1';
+          animateValue(numEl, 0, target, suffix, 1500, suffix === '+');
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.stat-item').forEach(function(el) { statsObserver.observe(el); });
+
+    // Testimonials carousel: 3 cards visible on desktop, 1 on mobile + dot indicators
+    (function() {
+      var track = document.getElementById('testimonialsTrack');
+      var cards = track.querySelectorAll('.testimonial-card');
+      var dotsContainer = document.getElementById('testimonialsDots');
+      var index = 0;
+      function getMaxIndex() {
+        return window.innerWidth <= 768 ? 3 : 1;
+      }
+      function renderDots() {
+        var maxIdx = getMaxIndex();
+        var count = maxIdx + 1;
+        dotsContainer.innerHTML = '';
+        for (var i = 0; i < count; i++) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          btn.classList.toggle('active', i === index);
+          (function(idx) {
+            btn.addEventListener('click', function() {
+              index = idx;
+              updateSlide();
+            });
+          })(i);
+          dotsContainer.appendChild(btn);
+        }
+      }
+      function updateSlide() {
+        cards.forEach(function(c, j) {
+          c.classList.toggle('active', j === index);
+        });
+        var cardWidth = cards[0].offsetWidth;
+        var gap = 24;
+        track.style.transform = 'translateX(-' + (index * (cardWidth + gap)) + 'px)';
+        var dots = dotsContainer.querySelectorAll('button');
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === index); });
+      }
+      function goNext() {
+        var maxIdx = getMaxIndex();
+        index = index >= maxIdx ? 0 : index + 1;
+        updateSlide();
+      }
+      function goPrev() {
+        var maxIdx = getMaxIndex();
+        index = index <= 0 ? maxIdx : index - 1;
+        updateSlide();
+      }
+      renderDots();
+      updateSlide();
+      setInterval(goNext, 4000);
+      document.getElementById('testPrev').addEventListener('click', goPrev);
+      document.getElementById('testNext').addEventListener('click', goNext);
+      window.addEventListener('resize', function() {
+        index = Math.min(index, getMaxIndex());
+        renderDots();
+        updateSlide();
+      });
+    })();
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(function(item) {
+      var btn = item.querySelector('.faq-question');
+      var answer = item.querySelector('.faq-answer');
+      btn.addEventListener('click', function() {
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) {
+          i.classList.remove('open');
+          i.querySelector('.faq-answer').style.maxHeight = '';
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = '500px';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
